@@ -1,4 +1,4 @@
-package com.artemmoroz.anew.news.domain
+package com.artemmoroz.anew.news.domain.model
 
 data class News(
     val title: String,

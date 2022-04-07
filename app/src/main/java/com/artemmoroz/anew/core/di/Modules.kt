@@ -1,7 +1,9 @@
 package com.artemmoroz.anew.core.di
 
-import com.artemmoroz.anew.core.ApiService
+import com.artemmoroz.anew.core.network.ApiService
 import com.artemmoroz.anew.core.network.AuthInterceptor
+import com.artemmoroz.anew.news.data.repository.NewsRepositoryImpl
+import com.artemmoroz.anew.news.domain.NewsRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -41,7 +43,14 @@ private val apiModule = module {
     }
 }
 
+private val repositoryModule = module {
+    single<NewsRepository> {
+        NewsRepositoryImpl(get())
+    }
+}
+
 val newsApplicationModules = listOf(
-    apiModule
+    apiModule,
+    repositoryModule
 )
 

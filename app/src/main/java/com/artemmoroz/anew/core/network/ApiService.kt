@@ -1,6 +1,6 @@
-package com.artemmoroz.anew.core
+package com.artemmoroz.anew.core.network
 
-import com.artemmoroz.anew.news.data.NewsResponse
+import com.artemmoroz.anew.news.data.model.NewsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

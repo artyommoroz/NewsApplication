@@ -1,7 +1,7 @@
-package com.artemmoroz.anew.news
+package com.artemmoroz.anew.news.data.mapper
 
-import com.artemmoroz.anew.news.data.NewsDto
-import com.artemmoroz.anew.news.domain.News
+import com.artemmoroz.anew.news.data.model.NewsDto
+import com.artemmoroz.anew.news.domain.model.News
 
 fun NewsDto.toDomain() = News(
     title = title,
