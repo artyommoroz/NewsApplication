@@ -7,24 +7,21 @@
 
     <fragment
         android:id="@+id/NewsFragment"
-        android:name="com.artemmoroz.anew.NewsFragment"
+        android:name="com.artemmoroz.anew.news.presentation.NewsFragment"
         android:label="@string/news_fragment_label"
         tools:layout="@layout/fragment_news">
-
         <action
             android:id="@+id/action_NewsFragment_to_NewsDetailsFragment"
             app:destination="@id/NewsDetailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/NewsDetailsFragment"
-        android:name="com.artemmoroz.anew.NewsDetailsFragment"
+        android:name="com.artemmoroz.anew.news.presentation.NewsDetailsFragment"
         android:label="@string/news_details_fragment_label"
         tools:layout="@layout/fragment_news_details">
         <argument
             android:name="news"
             app:argType="com.artemmoroz.anew.news.domain.model.News" />
-        <action
-            android:id="@+id/action_NewsDetailsFragment_to_NewsFragment"
-            app:destination="@id/NewsFragment" />
     </fragment>
 </navigation>

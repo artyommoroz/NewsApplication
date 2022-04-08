@@ -1,4 +1,4 @@
-package com.artemmoroz.anew.news.presentation
+package com.artemmoroz.anew.news.presentation.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +20,7 @@ class NewsViewModel(
 
     private fun loadNews() {
         viewModelScope.launch {
+            // Sources parameter is required to work with NewsAPI
             getNewsUseCase.execute("techcrunch")
                 .onSuccess { newsList.postValue(it) }
                 .onFailure { showErrorMessage.postValue("An error occurred") }

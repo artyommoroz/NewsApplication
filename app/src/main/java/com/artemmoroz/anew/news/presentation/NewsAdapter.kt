@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.artemmoroz.anew.core.utils.DateTimeUtils.getRelativeDate
 import com.artemmoroz.anew.databinding.ItemNewsBinding
 import com.artemmoroz.anew.news.domain.model.News
 import com.bumptech.glide.Glide
@@ -36,7 +37,7 @@ class NewsAdapter : ListAdapter<News, NewsAdapter.NewsViewHolder>(
                 Glide.with(context).load(news.urlToImage).into(ivPhoto)
                 tvTitle.text = news.title
                 tvDescription.text = news.description
-                tvPublicationDate.text = news.publishedAt
+                tvPublicationDate.text = getRelativeDate(news.publishedAt)
             }
         }
 

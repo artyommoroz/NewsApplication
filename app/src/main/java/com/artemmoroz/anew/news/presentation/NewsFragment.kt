@@ -1,14 +1,14 @@
-package com.artemmoroz.anew
+package com.artemmoroz.anew.news.presentation
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.artemmoroz.anew.R
 import com.artemmoroz.anew.core.base.BaseFragment
 import com.artemmoroz.anew.databinding.FragmentNewsBinding
-import com.artemmoroz.anew.news.presentation.NewsAdapter
-import com.artemmoroz.anew.news.presentation.NewsViewModel
+import com.artemmoroz.anew.news.presentation.vm.NewsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NewsFragment : BaseFragment<FragmentNewsBinding>(

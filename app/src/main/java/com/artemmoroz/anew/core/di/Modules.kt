@@ -5,7 +5,7 @@ import com.artemmoroz.anew.core.network.AuthInterceptor
 import com.artemmoroz.anew.news.data.repository.NewsRepositoryImpl
 import com.artemmoroz.anew.news.domain.NewsRepository
 import com.artemmoroz.anew.news.domain.useCase.GetNewsUseCase
-import com.artemmoroz.anew.news.presentation.NewsViewModel
+import com.artemmoroz.anew.news.presentation.vm.NewsViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,7 +18,7 @@ const val BASE_URL = "https://newsapi.org"
 private val apiModule = module {
     single {
         OkHttpClient.Builder()
-            .addInterceptor(get<AuthInterceptor>())
+            .addInterceptor(AuthInterceptor())
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
     }
@@ -46,8 +46,14 @@ private val apiModule = module {
     }
 }
 
+private val viewModelModule = module {
+    viewModel {
+        NewsViewModel(get())
+    }
+}
+
 private val repositoryModule = module {
-    single<NewsRepository> {
+    factory<NewsRepository> {
         NewsRepositoryImpl(get())
     }
 }
@@ -58,16 +64,9 @@ private val useCaseModule = module {
     }
 }
 
-private val viewModelModule = module {
-    viewModel {
-        NewsViewModel(get())
-    }
-}
-
 val newsApplicationModules = listOf(
     apiModule,
+    viewModelModule,
     repositoryModule,
-    useCaseModule,
-    viewModelModule
+    useCaseModule
 )
-
