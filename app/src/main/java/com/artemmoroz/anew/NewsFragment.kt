@@ -1,44 +1,46 @@
 package com.artemmoroz.anew
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.artemmoroz.anew.databinding.FragmentFirstBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.artemmoroz.anew.core.base.BaseFragment
+import com.artemmoroz.anew.databinding.FragmentNewsBinding
+import com.artemmoroz.anew.news.presentation.NewsAdapter
+import com.artemmoroz.anew.news.presentation.NewsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-class NewsFragment : Fragment() {
+class NewsFragment : BaseFragment<FragmentNewsBinding>(
+    R.layout.fragment_news,
+    FragmentNewsBinding::bind
+) {
 
-    private var _binding: FragmentFirstBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
-
-    }
+    private val viewModel: NewsViewModel by viewModel()
+    private val newsAdapter = NewsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+        subscribeToViewModel()
+    }
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    private fun initViews() {
+        newsAdapter.onItemClicked = {
+            findNavController().navigate(NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(it))
+        }
+        binding.recyclerView.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(requireActivity())
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun subscribeToViewModel() {
+        viewModel.newsList.observe(this) {
+            newsAdapter.submitList(it)
+        }
+        viewModel.showErrorMessage.observe(this) {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
     }
 }

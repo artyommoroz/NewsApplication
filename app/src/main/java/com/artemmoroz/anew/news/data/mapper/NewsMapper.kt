@@ -5,6 +5,7 @@ import com.artemmoroz.anew.news.domain.model.News
 
 fun NewsDto.toDomain() = News(
     title = title,
+    description = description,
     url = url,
     urlToImage = urlToImage,
     publishedAt = publishedAt,
@@ -13,6 +14,7 @@ fun NewsDto.toDomain() = News(
 
 fun News.toDto() = NewsDto(
     title = title,
+    description = description,
     url = url,
     urlToImage = urlToImage,
     publishedAt = publishedAt,

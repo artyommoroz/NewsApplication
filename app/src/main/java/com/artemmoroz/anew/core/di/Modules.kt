@@ -4,8 +4,11 @@ import com.artemmoroz.anew.core.network.ApiService
 import com.artemmoroz.anew.core.network.AuthInterceptor
 import com.artemmoroz.anew.news.data.repository.NewsRepositoryImpl
 import com.artemmoroz.anew.news.domain.NewsRepository
+import com.artemmoroz.anew.news.domain.useCase.GetNewsUseCase
+import com.artemmoroz.anew.news.presentation.NewsViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,8 +52,22 @@ private val repositoryModule = module {
     }
 }
 
+private val useCaseModule = module {
+    single {
+        GetNewsUseCase(get())
+    }
+}
+
+private val viewModelModule = module {
+    viewModel {
+        NewsViewModel(get())
+    }
+}
+
 val newsApplicationModules = listOf(
     apiModule,
-    repositoryModule
+    repositoryModule,
+    useCaseModule,
+    viewModelModule
 )
 
