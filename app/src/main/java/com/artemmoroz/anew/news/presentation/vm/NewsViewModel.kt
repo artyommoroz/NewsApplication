@@ -18,7 +18,7 @@ class NewsViewModel(
         loadNews()
     }
 
-    private fun loadNews() {
+    fun loadNews() {
         viewModelScope.launch {
             // Sources parameter is required to work with NewsAPI
             getNewsUseCase.execute("techcrunch")
